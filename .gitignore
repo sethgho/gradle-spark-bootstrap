@@ -1,0 +1,14 @@
+*/bin/*
+*.DS_Store
+*.classpath
+*.settings
+.metadata/*
+*/.apt_generated/*
+.gradle
+build/
+local.properties
+.idea/*
+*.iml
+reports/
+**/reports/
+build
