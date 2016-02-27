@@ -5,6 +5,5 @@ import dagger.Component;
 
 @Component(modules = ControllerModule.class)
 public interface RestApiComponent {
-
-  void inject(App app);
+  App createApp();
 }

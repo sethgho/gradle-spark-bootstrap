@@ -1,25 +1,21 @@
 package com.sethgholson;
 
 import com.sethgholson.controllers.Controller;
-import com.sethgholson.controllers.ControllerModule;
 import java.util.Set;
 import javax.inject.Inject;
 import spark.Spark;
 
 public class App {
 
-  @Inject Set<Controller> controllers;
+  private final Set<Controller> controllers;
 
-  public App() {
-    RestApiComponent component = com.sethgholson.DaggerRestApiComponent.builder()
-        .controllerModule(new ControllerModule())
-        .build();
-    component.inject(this);
+  @Inject public App(Set<Controller> controllers) {
+    this.controllers = controllers;
   }
 
   public void start() {
     Spark.staticFileLocation("/public");
-    for(Controller c : controllers) {
+    for (Controller c : controllers) {
       c.init();
     }
   }
