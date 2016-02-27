@@ -2,15 +2,15 @@ package com.sethgholson;
 
 import com.sethgholson.controllers.Controller;
 import com.sethgholson.controllers.WidgetController;
-import java.util.ArrayList;
-import java.util.List;
+import spark.Spark;
 
 public class App {
-  static List<Controller> controllers;
+  static Controller[] controllers = new Controller[]{
+      new WidgetController("/widget")
+  };
 
   public static void main(String[] args) {
-    controllers = new ArrayList<>();
-    controllers.add(new WidgetController("/widget"));
+    Spark.staticFileLocation("/public");
     for (Controller c : controllers) {
       c.init();
     }
