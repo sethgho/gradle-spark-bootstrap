@@ -1,17 +1,25 @@
 package com.sethgholson;
 
 import com.sethgholson.controllers.Controller;
-import com.sethgholson.controllers.WidgetController;
+import com.sethgholson.controllers.ControllerModule;
+import java.util.Set;
+import javax.inject.Inject;
 import spark.Spark;
 
 public class App {
-  static Controller[] controllers = new Controller[]{
-      new WidgetController("/widget")
-  };
 
-  public static void main(String[] args) {
+  @Inject Set<Controller> controllers;
+
+  public App() {
+    RestApiComponent component = com.sethgholson.DaggerRestApiComponent.builder()
+        .controllerModule(new ControllerModule())
+        .build();
+    component.inject(this);
+  }
+
+  public void start() {
     Spark.staticFileLocation("/public");
-    for (Controller c : controllers) {
+    for(Controller c : controllers) {
       c.init();
     }
   }
